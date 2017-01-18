@@ -33,7 +33,7 @@ angular.module('DSTInterfaceApp')
   this.run_cluster = function(){
     var that = this;
     console.log(this.cluster);
-    Requests.send_command({"cluster": this.cluster}).then(function(response) {
+    Requests.run_cluster({"cluster": this.cluster}).then(function(response) {
       console.log(response.data);
     },function(response){
       console.log("erro ao executar o cluster");

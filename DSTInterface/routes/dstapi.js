@@ -5,7 +5,7 @@ var exec = require('child_process').exec;
 var dst_folder = "~/.klei/DoNotStarveTogetherANewReignBeta/";
 var server_folder = "~/server_dst/bin/";
 var start_server = "~/start_server.sh/";
-var full_rote = "/home/giovane/"
+var full_rote = "/home/dst/"
 
 var command;
 
@@ -25,9 +25,9 @@ router.get('/list_clusters', function(req, res, next) {
     });
 });
 
-router.get('/start_server', function(req, res, next) {
+router.post('/start_cluster', function(req, res, next) {
 
-    console.log(req.body.cluster);
+    console.log(req.body);
     var command = 'sh '+ full_rote + 'start_all.sh ' + req.body.cluster;
     exec(command, (error, stdout, stderr) => {
         if (error) {

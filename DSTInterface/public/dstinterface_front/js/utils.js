@@ -21,7 +21,7 @@ function parseDate(date){
     return str;
 }
 
-var domain = "http://localhost:3000/"
+var domain = "http://52.67.251.33:3000/"
 function urlpath(path){
     return domain + path;
 };
