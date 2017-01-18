@@ -4,6 +4,7 @@ angular.module('DSTInterfaceApp')
 .controller('DSTInterfaceController', function ($http, Requests) {
 
   this.command = "";
+  this.cluster = "";
   this.clusters = "";
   this.stdout_list = [];
 
@@ -31,13 +32,11 @@ angular.module('DSTInterfaceApp')
 
   this.run_cluster = function(){
     var that = this;
-    console.log(this.command);
-    Requests.send_command({"cluster": this.command}).then(function(response) {
-      console.log(response.data.stdout);
-      that.stdout_list.push(response.data.stdout);
-      console.log(that.stdout_list);
+    console.log(this.cluster);
+    Requests.send_command({"cluster": this.cluster}).then(function(response) {
+      console.log(response.data);
     },function(response){
-      console.log("erro");
+      console.log("erro ao executar o cluster");
     });
     this.cluster = "";
   };

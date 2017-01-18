@@ -27,7 +27,9 @@ router.get('/list_clusters', function(req, res, next) {
 
 router.get('/start_server', function(req, res, next) {
 
-    exec('pwd' + dst_folder, (error, stdout, stderr) => {
+    console.log(req.body.cluster);
+    var command = 'sh '+ full_rote + 'start_all.sh ' + req.body.cluster;
+    exec(command, (error, stdout, stderr) => {
         if (error) {
             res.json({"error": error});
             return;
