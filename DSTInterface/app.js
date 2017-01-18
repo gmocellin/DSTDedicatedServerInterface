@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var dstapi = require('./routes/dstapi');
 //var aws = require('./routes/aws');
 
 var app = express();
@@ -21,9 +22,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/dstinterface_front/')));
 
 app.use('/', index);
+app.use('/dstapi', dstapi);
 app.use('/users', users);
 //app.use('/aws', aws);
 
