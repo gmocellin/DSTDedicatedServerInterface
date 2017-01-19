@@ -3,10 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node ./bin/www"
   },
   "dependencies": {
-    "angularjs": "0.0.1",
     "aws-sdk": "^2.7.23",
     "body-parser": "~1.15.2",
     "child_process": "^1.0.2",

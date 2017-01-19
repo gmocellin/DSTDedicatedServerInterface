@@ -2,39 +2,56 @@ var express = require('express');
 var router = express.Router();
 var exec = require('child_process').exec;
 
-var dst_folder = "~/.klei/DoNotStarveTogetherANewReignBeta/";
-var server_folder = "~/server_dst/bin/";
-var start_server = "~/start_server.sh/";
-var full_rote = "/home/dst/"
+var full_rote = "/home/dst/";
+var dst_folder = full_rote + ".klei/DoNotStarveTogetherANewReignBeta/";
+var server_folder = full_rote + "server_dst/bin/";
+var start_server = full_rote + "start_all.sh ";
 
 var command;
 
 router.get('/', function(req, res, next) {
-    res.render('index.html');     
+    res.render('index.html');
 });
 
 router.get('/list_clusters', function(req, res, next) {
     command = "ls " + dst_folder;
-    console.log(command);
+    //console.log(command);
     exec(command, (error, stdout, stderr) => {
         if (error) {
-            res.json({"error": error});
+            res.json({"status": "error"});
             return;
         }
-        res.json({"cluster_list": stdout});
+        res.json({"status": "success", "cluster_list": stdout});
     });
 });
 
 router.post('/start_cluster', function(req, res, next) {
 
-    console.log(req.body);
-    var command = 'sh '+ full_rote + 'start_all.sh ' + req.body.cluster;
+    //console.log(req.body);
+    var data = (req.body) ? req.body : undefined;
+    if(data && data.cluster != "" ){
+        var command = 'sh '+ start_server + data.cluster;
+        exec(command, (error, stdout, stderr) => {
+            if (error) {
+                res.json({"status": "error"});
+                return;
+            }
+            res.json({"status": "success"});
+        });
+    } else {
+        res.json({"status": "error"});
+    }
+});
+
+router.put('/close_cluster', function(req, res, next) {
+    command = "screen -X -S dst_server1 quit | screen -X -S dst_server2 quit";
+    //console.log(command);
     exec(command, (error, stdout, stderr) => {
         if (error) {
-            res.json({"error": error});
+            res.json({"status": "error"});
             return;
         }
-        res.json({"response": stdout});
+        res.json({"status": "success"});
     });
 });
 

@@ -41,6 +41,17 @@ angular.module('DSTInterfaceApp')
     this.cluster = "";
   };
 
+  this.close_cluster = function(){
+    var that = this;
+    console.log(this.cluster);
+    Requests.close_cluster().then(function(response) {
+      console.log(response.data);
+    },function(response){
+      console.log("erro ao terminar o cluster");
+    });
+    this.cluster = "";
+  };
+
 });
 
 })();
