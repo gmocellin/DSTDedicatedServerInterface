@@ -1,5 +1,7 @@
 (function(){
 
-var app = angular.module('DSTInterfaceApp', []);
+var app = angular.module('DSTInterfaceApp', [
+    'ui-notification'
+    ]);
 
 })();

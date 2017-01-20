@@ -21,6 +21,10 @@ function parseDate(date){
     return str;
 }
 
+function isInArray(value, array) {
+  return array.indexOf(value) > -1;
+}
+
 var domain = "http://localhost:3000/"
 function urlpath(path){
     return domain + path;
