@@ -25,7 +25,7 @@ function isInArray(value, array) {
   return array.indexOf(value) > -1;
 }
 
-var domain = "http://localhost:3000/"
+var domain = "http://ec2-52-67-231-32.sa-east-1.compute.amazonaws.com:3000/"
 function urlpath(path){
     return domain + path;
 };

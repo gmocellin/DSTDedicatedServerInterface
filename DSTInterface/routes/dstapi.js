@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var exec = require('child_process').exec;
 
-var full_rote = "/home/giovane/";
+var full_rote = "/home/dst/";
 var dst_folder = full_rote + ".klei/DoNotStarveTogetherANewReignBeta/";
 var server_folder = full_rote + "server_dst/bin/";
 var start_server = full_rote + "start_all.sh ";
@@ -55,12 +55,12 @@ router.post('/start_cluster', function(req, res, next) {
             }
             context.status = "success";
             context.msg = "Cluster iniciado";
-            res.json({"status": "success"});
+            res.json({"context": context});
         });
     } else {
         context.status = "error";
         context.msg = "Nome do cluster inválido";
-        res.json({"status": "error"});
+        res.json({"context": context});
     }
 });
 
@@ -80,7 +80,7 @@ router.put('/close_cluster', function(req, res, next) {
         }
         context.status = "success";
         context.msg = "Cluster finalizado";
-        res.json({"context": contexts});
+        res.json({"context": context});
     });
 });
 

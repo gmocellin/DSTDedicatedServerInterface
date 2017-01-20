@@ -10,6 +10,7 @@ angular.module('DSTInterfaceApp')
 
   var that = this;
 
+  //recebe o response.data como parametro
   var notify_response = function(response){
     if(response.context.status == "error"){
       Notification.error(response.context.msg);  
@@ -21,7 +22,6 @@ angular.module('DSTInterfaceApp')
   Requests.get_cluster_list().then(function(response) {
     console.log(response.data);
     notify_response(response.data);
-    //Notification.success("Cluster fechado.");
     that.cluster_list= response.data.cluster_list;
   },function(response){
     Notification.error("Erro para listar os clusters");

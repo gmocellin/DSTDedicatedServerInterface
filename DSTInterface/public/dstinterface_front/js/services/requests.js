@@ -10,7 +10,6 @@ angular.module("DSTInterfaceApp")
         //     return $http.get(urlpath("dstapi/stdout"));
         // },
         get_cluster_list: function(){
-            //console.log(urlpath("todolist"))
             return $http.get(urlpath("dstapi/list_clusters"));
         },
         run_cluster: function(cluster){
