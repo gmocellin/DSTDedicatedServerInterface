@@ -2,23 +2,24 @@ var express = require('express');
 var router = express.Router();
 var exec = require('child_process').exec;
 
-var full_rote = "/home/dst/";
-var dst_folder = full_rote + ".klei/DoNotStarveTogetherANewReignBeta/";
-var server_folder = full_rote + "server_dst/bin/";
-var start_server = full_rote + "start_all.sh ";
+var fullRote = "/home/dst/";
+var dstFolder = fullRote + ".klei/DoNotStarveTogetherANewReignBeta/";
+var serverFolder = fullRote + "server_dst/bin/";
+var startServer = fullRote + "start_all.sh ";
 
-var cluster_list = [];
+var clusterList = [];
 
-router.get('/', function(req, res, next) {
-    res.render('index.html');
-});
+// router.get('/', function(req, res, next) {
+//     res.render('index.html');
+// });
 
-router.get('/list_clusters', function(req, res, next) {
+router.get('/clusters', function(req, res) {
 
     var context = {};
     context.status = 'error';
 
-    command = "cat " + dst_folder + "cluster_list.txt";
+    //command = "cat " + dstFolder + "clusterList.txt";
+    command = "ls " + dstFolder + " | grep Cluster_";
 
     exec(command, (error, stdout, stderr) => {
         if (error) {
@@ -33,11 +34,11 @@ router.get('/list_clusters', function(req, res, next) {
         }
         context.status = "success";
         context.msg = "Clusters listados com sucesso";
-        res.json({"context": context, "cluster_list": list});
+        res.json({"context": context, "clusterList": list});
     });
 });
 
-router.post('/start_cluster', function(req, res, next) {
+router.post('/clusters/start', function(req, res) {
 
     var context = {};
     context.status = 'error';
@@ -45,7 +46,7 @@ router.post('/start_cluster', function(req, res, next) {
     //console.log(req.body);
     var data = (req.body) ? req.body : undefined;
     if(data && data.cluster != "" ){
-        var command = 'sh '+ start_server + data.cluster;
+        var command = 'sh '+ startServer + data.cluster;
         exec(command, (error, stdout, stderr) => {
             if (error) {
                 context.status = "error";
@@ -64,7 +65,7 @@ router.post('/start_cluster', function(req, res, next) {
     }
 });
 
-router.put('/close_cluster', function(req, res, next) {
+router.post('/clusters/stop', function(req, res) {
 
     var context = {};
     context.status = 'error';
@@ -84,54 +85,24 @@ router.put('/close_cluster', function(req, res, next) {
     });
 });
 
-// router.get('/dir', function(req, res, next) {
-//     exec('pwd', (error, stdout, stderr) => {
-//         if (error) {
-//             console.log("error cd ~");
-//             return;
-//         }
-//         res.json({"dir": stdout});
-//     });
-// });
+router.post('/servers/update', function(req, res) {
 
-// executes `commands`
-// router.post('/command', function(req, res, next) {
+    var context = {};
+    context.status = 'error';
 
-//     var context = {};
-//     context.status = 'error';
-
-//     var data = (req.body) ? req.body : undefined;
-//     if(data){
-//         if(data.command != ""){
-//             data.command += " " + full_rote;
-//             exec(data.command, (error, stdout, stderr) => {
-//                 if (error) {
-//                     context.status = 'error';
-//                     context.error = error;
-//                     res.json(context);
-//                     return;
-//                 }
-//                 context.status = "success";
-//                 context.stdout = stdout;
-//                 res.json(context);
-//             });
-//             data.command = "echo '    "+ data.command +"' >> log/command_log";
-//             exec(data.command, (error, stdout, stderr) => {
-//                 if (error) {
-//                     return;
-//                 }
-//                 return;
-//             });
-//         } else {
-//             context.status = 'error';
-//             context.msg = 'Missing command.';
-//             res.json(context);
-//         }
-//     } else {
-//         context.status = 'error';
-//         context.msg = 'No Data';
-//         res.json(context);
-//     }
-// });
+    command = "sh " + serverFolder + "update.sh";
+    //console.log(command);
+    exec(command, (error, stdout, stderr) => {
+        if (error) {
+            context.status = "error";
+            context.msg = "Não foi possível atualizar o servidor";
+            res.json({"context": context});
+            return;
+        }
+        context.status = "success";
+        context.msg = "Servidor atualizado";
+        res.json({"context": context});
+    });
+});
 
 module.exports = router;

@@ -21,28 +21,29 @@
         <div class="container" ng-controller="DSTInterfaceController as DSTICtrl">
             <div class="row">
                 <div class="col-xs-offset-2 col-xs-offset-2 col-xs-8">
-                    <h2>DSTInterface</h2>
+                    <h2>DST Interface</h2>
                     <h3>Lista de clusters: </h3>
                     <h4>
-                        <div ng-repeat="cluster in DSTICtrl.cluster_list">
-                            {{cluster}}
+                        <div ng-repeat="clusterName in DSTICtrl.clusterList">
+                            {{clusterName}}
                         </div>
                     </h4>
                     <div class="row">
                         <div class="col-xs-8">
-                        <form name="cluster-form" class="form-inline" ng-submit="DSTICtrl.run_cluster()">
+                        <form name="cluster-form" class="form-inline" ng-submit="DSTICtrl.startCluster()">
                             <div class="row">
                                 <div class="col-xs-3">
                                     <input type="submit" class="btn btn-default" value="Start/Restart">
                                 </div>
                                 <div class="col-xs-9">
-                                    <input ng-model="DSTICtrl.start_cluster" class="form-control" type="text">
+                                    <input ng-model="DSTICtrl.clusterName" class="form-control" type="text">
                                 </div>
                             </div>
                         </form>
                         </div>
                         <div class="col-xs-4">
-                            <input ng-click="DSTICtrl.close_cluster()" class="btn btn-default" value="Close Cluster">
+                            <input ng-click="DSTICtrl.stopCluster()" class="btn btn-default" value="Close Cluster"><br>
+                            <input ng-click="DSTICtrl.updateServer()" class="btn btn-default" value="Update Server">
                         </div>
                     </div>
                     <br>
@@ -51,23 +52,6 @@
                     <p>Para iniciar um cluster insira o nome dele na caixa de texto e aperte o botão "Start/Restart".</p>
                     <p>O botão "Close Cluster" finaliza o último cluster iniciado.</p>
                     <p>Só será possível iniciar um cluster por vez.</p>
-                    <!-- <div class="row">
-                        <div class="col-xs-12">
-                            <form name="command-form" class="form-group" ng-submit="DSTICtrl.send_command()">
-                                <div class="row">
-                                    <div class="col-xs-10">
-                                        <input ng-model="DSTICtrl.command" class="form-control" type="text" >
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <input type="submit" class="btn btn-default" value="Send">
-                                    </div>
-                                </div>
-                            </form>
-                            <div ng-repeat="stdout in DSTICtrl.stdout_list track by $index">
-                                <p>{{stdout}}</p>
-                            </div> 
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
